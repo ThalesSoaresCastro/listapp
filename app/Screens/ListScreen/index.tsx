@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import {  FlatList, Alert } from 'react-native';
 import InfoBarComponent from '../../Components/InfoBarComponent';
 import ListItemContext from '../../Contexts/ListItems';
-import CheckBox from '@react-native-community/checkbox';
+
+import Checkbox from 'expo-checkbox';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Sound from 'react-native-sound';
+import { Audio } from 'expo-av';
 
 import { 
   TextEmptyList,
@@ -37,8 +38,9 @@ const ListScreen: React.FC = () => {
   const [element, SetElement] = useState<ItemList | null>(null);
   const [checked, setChecked] = useState([]);
 
-  const {listItems,themeUser, RemoveElement} =  useContext(ListItemContext);
+  const [sound, setSound] = useState(null);
 
+  const {listItems,themeUser, RemoveElement} =  useContext(ListItemContext);
 
   useEffect(()=>{
     async function SetData() {
@@ -47,12 +49,36 @@ const ListScreen: React.FC = () => {
     SetData()
   },);
 
-  const som = new Sound(require('../../Sound/clickEfect.mp3'));
-  som.setVolume(1);
-  const playSound = () => {
-    som.play((success) => som.reset());
-  }
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../../Sound/clickEfect.mp3')
+    );
+    setSound(sound);
+  await sound.playAsync(); }
   
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync(); }
+      : undefined;
+  }, [sound]);
+
+
+  //limpa a lista checked's de ids de itens que foram deletados enquanto ainda
+  //estavam selecionados...
+  useEffect(()=>{
+      let value = false;
+      listItems.length > 0 ?
+      checked.forEach(e =>{
+        value = listItems.find( l => l.id == e) === undefined? true:false;
+          if(value){
+            checked.splice(e,1)
+          }    
+      }):setChecked([])
+      
+  },[listItems]);
+
   const render = (item:ItemList)=>(
     <>
       <ViewItem
@@ -65,15 +91,13 @@ const ListScreen: React.FC = () => {
         }}
       >
 
-          <CheckBox
-            onCheckColor={theme[themeUser].isChecked}
-            tintColors={{
-              true:theme[themeUser].isChecked,
-              false: theme[themeUser].infoColor
-            }}
+          <Checkbox
+            color={theme[themeUser].isChecked}
             value={checked.includes(item.id)}
-            onChange={async()=>{
-              playSound();
+            //disabled
+            onValueChange={async()=>{
+              
+              await playSound();
               
               const newIds = [...checked];
               const index = newIds.indexOf(item.id);

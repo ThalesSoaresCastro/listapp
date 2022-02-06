@@ -37,11 +37,18 @@ type ItemList = {
 
 
 const InfoBarComponent: React.FC<Props> = ({children, qtdCheck}) => {
+    
+    const {listItems, themeUser, SetTheme} =  useContext(ListItemContext);
+    //const [value, SetValue] = useState(false);
+
     const [openModal, SetOpenModal] = useState(false);
 
-    const {listItems, themeUser, SetTheme} =  useContext(ListItemContext);
+    const [value, SetValue] = useState(true);
 
-    const [value, SetValue] = useState(false);
+    useEffect(()=>{
+        let result = themeUser === 'light'?false:true;
+        SetValue(result);
+    },[themeUser])
 
     const toggleSwitch = async () => {
         SetValue(!value);

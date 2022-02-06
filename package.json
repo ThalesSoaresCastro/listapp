@@ -6,17 +6,20 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "reset": "rm -r android/build && rm -rf android/app/src/release/res && watchman watch-del-all && rm -rf $TMPDIR/react-* && yarn start -- --reset-cache"
   },
   "dependencies": {
-    "@react-native-community/checkbox": "^0.5.9",
+    "@react-native-async-storage/async-storage": "^1.15.17",
+    "@react-native-community/checkbox": "^0.5.2",
     "expo": "~44.0.2",
+    "expo-av": "~10.2.0",
+    "expo-checkbox": "~2.0.0",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-sound": "^0.11.2",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.1",
     "styled-components": "^5.3.3"

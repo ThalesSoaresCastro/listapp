@@ -26,18 +26,21 @@ export const TitleModal = styled.Text<ITheme>`
 `;
 
 export const ViewModal = styled.View<ITheme>`
-    height: 400px;
+    height: 350px;
     width:  80%;
     background:${props => theme[props.backgroundColorProps].primary};
     align-items: center;
     justify-content: center;
     border-radius:8px;
     flex-direction:column;
+    padding:4%;
+    border-color: ${props => theme[props.backgroundColorProps].complement};
+    border-width:2px;
 `;
 
 export const InputView = styled.View`
     width:100%;
-    height: 60px;
+    height: 40px;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
@@ -57,9 +60,10 @@ export const InputText = styled.TextInput<ITheme>`
     height:98%;
     text-align:center;
     border-color: ${props => theme[props.backgroundColorProps].brightColor};
-    border-width:4px;
+    border-width:2px;
     border-radius:6px;
     color: ${props => theme[props.backgroundColorProps].brightColor};
+    background: ${props => theme[props.backgroundColorProps].secundary};
 `;
 
 
@@ -83,11 +87,12 @@ export const InputArea = styled.TextInput.attrs({
     height: 98%;
     width: 70%;
     border-color: ${props => theme[props.backgroundColorProps].brightColor};
-    border-width:4px;
+    border-width:2px;
     border-radius:6px;
     text-align-vertical:top;
     padding:3%;
     color: ${props => theme[props.backgroundColorProps].brightColor};
+    background: ${props => theme[props.backgroundColorProps].secundary};
 `;
 
 
@@ -101,7 +106,7 @@ export const TextButton = styled.Text`
 export const ButtonConfirm = styled.TouchableOpacity<ITheme>`
     background-color:${props => theme[props.backgroundColorProps].complement};
     height: 12%;
-    width: 60%;
+    width: 75%;
     border-radius: 4px;
     align-items:center;
     justify-content:center;

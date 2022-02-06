@@ -18,7 +18,7 @@ export const Container = styled.View<ITheme>`
 export const Header = styled.View<ITheme>`
     background: ${props => th[props.backgroundColorProps].complement};
     width:100%;
-    height:20%;
+    height:150px;
     align-items: center;
     justify-content:center;
     padding-top: 7%;
