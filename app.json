@@ -4,6 +4,7 @@
     "slug": "buylistapp",
     "version": "1.0.0",
     "orientation":"portrait",
+    "icon":"./assets/icon.jpg",
     "splash": {
       "image": "./assets/black.png",
       "resizeMode":"contain",
@@ -11,7 +12,13 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android":{
+      "adaptiveIcon":{
+        "foregroundImage":"./assets/icon.jpg",
+        "backgroundColor":"ffffff"
+      }
+    }
   },
   "name": "buylistapp"
 }
